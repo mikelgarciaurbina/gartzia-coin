@@ -1,4 +1,4 @@
-import Block, { DIFFICULTY } from './block';
+import Block from './block';
 
 describe('Block', () => {
   let timestamp;
@@ -27,9 +27,10 @@ describe('Block', () => {
 
   it('use static mine()', () => {
     const block = Block.mine(previousBlock, data);
+    const { difficulty } = block;
 
     expect(block.hash.length).toEqual(64);
-    expect(block.hash.substring(0, DIFFICULTY)).toEqual('0'.repeat(DIFFICULTY));
+    expect(block.hash.substring(0, difficulty)).toEqual('0'.repeat(difficulty));
     expect(block.previousHash).toEqual(previousBlock.hash);
     expect(block.nonce).not.toEqual(0);
     expect(block.data).toEqual(data);
@@ -37,7 +38,7 @@ describe('Block', () => {
 
   it('use statuc hash()', () => {
     hash = Block.hash(timestamp, previousBlock.hash, data, nonce);
-    const hashOutput = 'd19c8f6c7cf1c13914a8935c93f59e127c6dccfffa7354e7044f7ac188b7d67e';
+    const hashOutput = 'dc7de8e7e040ef424b0ad28dd4f8a892690a547c6434b866df19b65dccb76905';
 
     expect(hash).toEqual(hashOutput);
   });
