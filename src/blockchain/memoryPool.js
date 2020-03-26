@@ -1,4 +1,4 @@
-class MemoryPoll {
+class MemoryPool {
   constructor() {
     this.transactions = [];
   }
@@ -10,4 +10,4 @@ class MemoryPoll {
   }
 }
 
-export default MemoryPoll;
+export default MemoryPool;
