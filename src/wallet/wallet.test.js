@@ -56,7 +56,7 @@ describe('Wallet', () => {
     });
   });
 
-  describe('calculating a balance', () => {
+  describe('calculating the current balance', () => {
     let addBalance;
     let times;
     let senderWallet;
@@ -74,11 +74,11 @@ describe('Wallet', () => {
     });
 
     it('calculates the balance for blockchain txs matching the recipient', () => {
-      expect(wallet.calculateBalance()).toEqual(INITIAL_BALANCE + (addBalance * times));
+      expect(wallet.currentBalance).toEqual(INITIAL_BALANCE + (addBalance * times));
     });
 
     it('calculates the balance for blockchain txs matching the sender', () => {
-      expect(senderWallet.calculateBalance()).toEqual(INITIAL_BALANCE - (addBalance * times));
+      expect(senderWallet.currentBalance).toEqual(INITIAL_BALANCE - (addBalance * times));
     });
 
     describe('and the recipient conducts a transaction', () => {
@@ -88,7 +88,7 @@ describe('Wallet', () => {
       beforeEach(() => {
         blockchain.memoryPool.wipe();
         substractBalance = 64;
-        recipientBalance = wallet.calculateBalance();
+        recipientBalance = wallet.currentBalance;
 
         wallet.createTransaction(senderWallet.publicKey, addBalance);
 
@@ -105,7 +105,7 @@ describe('Wallet', () => {
         });
 
         it('calculate the recipient balance only using txs since its most recent one', () => {
-          expect(wallet.calculateBalance()).toEqual(recipientBalance - substractBalance + addBalance);
+          expect(wallet.currentBalance).toEqual(recipientBalance - substractBalance + addBalance);
         });
       });
     });

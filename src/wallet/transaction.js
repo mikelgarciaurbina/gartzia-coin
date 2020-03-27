@@ -58,6 +58,6 @@ class Transaction {
   }
 }
 
-export { REWARD };
+export { REWARD };
 
 export default Transaction;
