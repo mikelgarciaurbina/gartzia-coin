@@ -1,4 +1,5 @@
 import { Transaction, blockchainWallet } from '../wallet';
+import { MESSAGE } from '../service/p2p';
 
 class Miner {
   constructor(blockchain, p2pService, wallet) {
@@ -20,6 +21,7 @@ class Miner {
     const block = this.blockchain.addBlock(memoryPool.transactions);
     p2pService.sync();
     memoryPool.wipe();
+    p2pService.broadcast(MESSAGE.WIPE);
 
     return block;
   }
